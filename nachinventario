@@ -1,31 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Inventario Rentable Nach</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f3f3f3;
-      padding: 20px;
-    }
 
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-    }
-
-    form, .buscador {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-    }
-
-    input, button {
-      padding: 8px;
-      margin: 5px;
     }
 
     table {
