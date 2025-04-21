@@ -1,51 +1,77 @@
-        <td colspan="2">Totales:</td>
-     
-      productos.push({ nombre, cantidad, costo, venta });
-      f
-        const gananciaUnit = p.venta - p.costo;
-        const gananciaTotal = gananciaUnit * p.cantidad;
 
-        totalCosto += p.costo * p.cantidad;
-        totalVenta += p.venta * p.cantidad;
-        totalGanancia += gananciaTotal;
-
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-          <td>${p.nombre}</td>
-          <td>${p.cantidad}</td>
-          <td>$${(p.costo * p.cantidad).toFixed(2)}</td>
-          <td>$${(p.venta * p.cantidad).toFixed(2)}</td>
-          <td>$${gananciaTotal.toFixed(2)}</td>
-          <td class="acciones">
-            <button onclick="editar(${i})">✏️</button>
-            <button onclick="eliminar(${i})">🗑️</button>
-          </td>
-        `;
-        tabla.appendChild(fila);
-      });
-
-      document.getElementById('totalCosto').textContent = `$${totalCosto.toFixed(2)}`;
-      document.getElementById('totalVenta').textContent = `$${totalVenta.toFixed(2)}`;
-      document.getElementById('totalGanancia').textContent = `$${totalGanancia.toFixed(2)}`;
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventario Nach Store</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
     }
+    h1 {
+      color: #e91e63;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      background-color: white;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>🛍️ Inventario Nach Store</h1>
 
-    function eliminar(index) {
-      if (confirm("¿Eliminar este producto?")) {
-        productos.splice(index, 1);
-        renderTabla();
+  <input type="text" id="nombreProducto" placeholder="Nombre del producto">
+  <button onclick="agregarProducto()">Agregar producto</button>
+
+  <h2>📋 Lista de productos</h2>
+  <ul id="listaProductos"></ul>
+
+  <script>
+    let productos = [];
+
+    // Cargar desde LocalStorage al iniciar
+    window.onload = function () {
+      const guardados = localStorage.getItem('productos');
+      if (guardados) {
+        productos = JSON.parse(guardados);
+        renderizarLista();
+      }
+    };
+
+    function agregarProducto() {
+      const input = document.getElementById('nombreProducto');
+      const nombre = input.value.trim();
+
+      if (nombre !== '') {
+        productos.push(nombre);
+        localStorage.setItem('productos', JSON.stringify(productos)); // Guardar en local
+        input.value = '';
+        renderizarLista();
       }
     }
 
-    function editar(index) {
-      const p = productos[index];
-      document.getElementById('nombre').value = p.nombre;
-      document.getElementById('cantidad').value = p.cantidad;
-      document.getElementById('costo').value = p.costo;
-      document.getElementById('venta').value = p.venta;
-      productos.splice(index, 1);
-      renderTabla();
+    function renderizarLista() {
+      const lista = document.getElementById('listaProductos');
+      lista.innerHTML = '';
+      productos.forEach((producto, index) => {
+        const li = document.createElement('li');
+        li.textContent = producto;
+        lista.appendChild(li);
+      });
     }
   </script>
-
 </body>
 </html>
